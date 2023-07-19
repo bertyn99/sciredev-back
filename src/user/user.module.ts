@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
-import { UsersController } from "./adaptater/user.controller.adapter";
+import { UsersController } from "./adapter/user.controller.adapter";
 import { UserServices } from "./metier/user.service";
 import { UserRepository } from "./port/user.repository";
-import { UserRepositoryAdapter } from "./adaptater/user.repository.adapter"
+import { UserRepositoryAdapter } from "./adapter/user.repository.adapter"
 import { CONTROLLERPORT } from "./port/controllerPort";
 
 
