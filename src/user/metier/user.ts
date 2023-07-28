@@ -1,5 +1,3 @@
-
 class User {
-
-    name:string;
+  name: string;
 }

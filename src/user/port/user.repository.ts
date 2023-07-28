@@ -1,6 +1,5 @@
-
 export interface UserRepository {
-    createInDb();
-    getFromDb();
+  createInDb();
+  getFromDb();
 }
 export const UserRepository = Symbol('UserRepository');

@@ -1,4 +1,3 @@
-
 export class CreateUserDto {
-    data:string
+  data: string;
 }

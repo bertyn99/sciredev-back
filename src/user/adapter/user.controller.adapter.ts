@@ -2,20 +2,19 @@ import { Controller, Delete, Get, Inject, Post } from '@nestjs/common';
 import { CONTROLLERPORT, ControllerPort } from '../port/controllerPort';
 import { CreateUserDto } from './dto/createUserDto';
 
-@Controller("/users")
+@Controller('/users')
 export class UsersController {
-
   constructor(
     @Inject(CONTROLLERPORT)
-    private controllerPort: ControllerPort) {}
+    private controllerPort: ControllerPort,
+  ) {}
 
-  @Post("/create")
+  @Post('/create')
   createUser(userData: CreateUserDto) {
     return this.controllerPort.create(userData.data);
   }
-  @Get("/getAll")
+  @Get('/getAll')
   getAllUsers() {
     return this.controllerPort.getAll();
   }
-
 }

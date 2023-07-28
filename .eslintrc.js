@@ -33,6 +33,23 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'crlf',
+      },
+    ],
+    'unicorn/filename-case': [
+      'error',
+      {
+        cases: {
+          camelCase: true,
+          kebabCase: true,
+        },
+      },
+    ],
+    'unicorn/prefer-top-level-await': 'off',
     'unicorn/no-fn-reference-in-iterator': 'off',
     'unicorn/no-array-for-each': 'off',
     'unicorn/no-null': 'off',
@@ -45,7 +62,8 @@ module.exports = {
     'unicorn/prevent-abbreviations': [
       'error',
       {
-        allowList: { Param: true, Req: true, Res: true },
+        allowList: { Param: true, Req: true, Res: true, E2E: true },
+        ignore: ['\\.e2e$', /^ignore/i],
       },
     ],
     '@typescript-eslint/naming-convention': [
@@ -89,5 +107,8 @@ module.exports = {
         format: ['UPPER_CASE'],
       },
     ],
+    '@darraghor/nestjs-typed/controllers-should-supply-api-tags': 'warn',
+    '@darraghor/nestjs-typed/api-method-should-specify-api-response': 'warn',
   },
 };
+
