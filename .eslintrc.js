@@ -63,7 +63,7 @@ module.exports = {
       'error',
       {
         allowList: { Param: true, Req: true, Res: true, E2E: true },
-        ignore: ['\\.e2e$', /^ignore/i],
+        ignore: ['\\.e2e-spec$', /^ignore/i],
       },
     ],
     '@typescript-eslint/naming-convention': [
