@@ -84,6 +84,15 @@ Nest is [MIT licensed](LICENSE).
 
 **The resume of the clean archi and how it is implemented in this project**
  
+
+    Currently we have 4 main folders:
+  - applications: This is the applications business layer, in this folder it will contain the existing business flows of the application in the form of use cases.
+  - domains : Represents the enterprise business layer in the form of models and abstractions from the repository.
+  - infrastructures : Contains frameworks and external tools, such as database, repository configuration and implementation.
+  - presentations : Adapter that connects the use case with the external layer.
+
+
+
  **Resume**
 The concept is to seperate the main part off the app while respecting the SOLID architecture.
 
