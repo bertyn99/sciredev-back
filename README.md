@@ -71,3 +71,55 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Archi hexa
+
+**The ressource I used**
+
+- [how to use hexa archi on nest](https://towardsdev.com/nest-js-clean-code-using-hexagonal-architecture-3442a37a6e8e)
+
+ - [Example of hexa archi and explication details abot ports and adapter](https://www.invivoo.com/architecture-hexagonale/)
+
+ - [Concept explication ](https://blog.octo.com/architecture-hexagonale-trois-principes-et-un-exemple-dimplementation/)
+
+**The resume of the clean archi and how it is implemented in this project**
+ 
+
+    Currently we have 4 main folders:
+  - applications: This is the applications business layer, in this folder it will contain the existing business flows of the application in the form of use cases.
+  - domains : Represents the enterprise business layer in the form of models and abstractions from the repository.
+  - infrastructures : Contains frameworks and external tools, such as database, repository configuration and implementation.
+  - presentations : Adapter that connects the use case with the external layer.
+
+
+
+ **Resume**
+The concept is to seperate the main part off the app while respecting the SOLID architecture.
+
+In this case we have the User Side the Bussiness Logic and The server side (I CALL Metier).
+
+In métier we code the usecases and ower domain. And every other dependancy will converge to this part. Server side dependency and User Side will converge to Metier. But they don't interact directly with the Metier there are port for that.
+
+**Current implementation**
+
+The code is separeted in modules. Itch module has an adapter , metier and port repository.
+- Adapter
+  This is the implementation of the featurs user side and server side. 
+- Port:
+  Adapters and usecases interact thanks to port with are just Interface.
+- metier:
+  hier we have our domain ; eg user.ts. It define the heart of the feature (what is a user , what can a user do? ).
+  Then we have the service wich ise our usecase. We use `@Injectable()` to tell to nestjs that it is our service.
+  Every adapter will depend on the service.
+  If the controllerAdapter want to make a request the service will have a methode for it. 
+  BUT the adapters and the service don't interact with each other , they use the port.
+
+This way the controller is separated from the metier. The only method he is allowed to use are in the intarface that is injected in the controller.
+
+That interface is implemented on the service , so the userService know what method to implement for it controller.
+
+In the other hand the repository Adapter implement the userRepository interface witch is a port. That means the interface is infected on the service. The goal is to make the repository adapter 100% independent from the service. If we change the adapter her ; eg we change our db or the implementation of the request to the db change it only affect the repository adapter.
+
+The usecase in the service stay pure and every part of the project is testable
+
+Just need to tell to nestjs what class or interface are inject in what in the module file
