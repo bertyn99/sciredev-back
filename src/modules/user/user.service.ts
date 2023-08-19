@@ -1,11 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UsersRepository } from './adaptater/user.repository';
+import { UserControllerPort } from './port/user.controller.port';
+import { UsersRepositoryAdapter } from './adaptater/user.repository.adapter';
 
 @Injectable()
-export class UserService {
-  constructor(private readonly userRepository: UsersRepository) {}
+export class UserService implements UserControllerPort {
+  constructor(
+        @Inject(UsersRepositoryAdapter)
+        private userRepositoryAdapter:UsersRepositoryAdapter,
+  ) { }
+  
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
   }

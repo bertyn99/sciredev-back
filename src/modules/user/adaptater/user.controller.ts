@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Inject
 } from '@nestjs/common';
 
 import { UserService } from '../user.service';
@@ -14,32 +15,38 @@ import { CreateUserDto } from '../dto/create-user.dto';
 
 import { UpdateUserDto } from '../dto/update-user.dto';
 
+import { USERCONTROLLERPORT, UserControllerPort } from '../port/user.controller.port';
+
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+
+  constructor(
+    @Inject(USERCONTROLLERPORT)
+    private userControllerPort: UserControllerPort
+   ) {}
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+    return this.userControllerPort.create(createUserDto);
   }
 
   @Get()
   findAll() {
-    return this.userService.findAll();
+    return this.userControllerPort.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userControllerPort.findOne(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+    return this.userControllerPort.update(+id, updateUserDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+    return this.userControllerPort.remove(+id);
   }
 }
