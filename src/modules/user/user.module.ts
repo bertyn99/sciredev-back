@@ -7,11 +7,10 @@ import { UsersRepositoryAdapter } from './adaptater/user.repository.adapter';
 @Module({
   controllers: [UserController],
   providers: [
-    UserService,
     UsersRepositoryAdapter,
     {
         provide: USERCONTROLLERPORT,
-        useValue: UserService, // Utilisez UserServices en tant que valeur pour ControllerPort
+        useClass: UserService, // Utilisez UserServices en tant que valeur pour ControllerPort
     }
 ]
 })
