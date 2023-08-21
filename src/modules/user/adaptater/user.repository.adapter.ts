@@ -1,14 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { UsersRepository } from '../port/user.repository';
+import { InjectRepository } from '@nestjs/typeorm';
 
 
 @Injectable()
-export class UsersRepositoryAdapter extends Repository<User> implements UsersRepository  {
-    
-    //!WARNING : not sure of the role of the extends and datasource here
-  constructor(dataSource: DataSource) {
-    super(User, dataSource.createEntityManager());
+export class UsersRepositoryAdapter implements UsersRepository  {
+  // constructor(
+  //   @InjectRepository(User)
+  //   private  usersRepository: Repository<User>,
+  // ) {}
+  constructor(
+    @Inject('USER_REPOSITORY')
+    private usersRepository: Repository<User>,
+  ) {}
+  findSignInUser(userEmail:string): Promise<any> {
+    return this.usersRepository.findOneBy({
+      email: userEmail,
+  }) 
   }
+
+ 
+
 }

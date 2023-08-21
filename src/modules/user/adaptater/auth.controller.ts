@@ -1,23 +1,33 @@
 import {
     Controller,
-    Get,
     Post,
     Body,
-    Patch,
-    Param,
-    Delete,
+    Inject,
+    HttpCode,
+    HttpStatus,
   } from '@nestjs/common';
 
 import { SignInDto } from './../dto/signIn.dto';
 import { SignUpDto } from './../dto/singUp.dto';
+import { AUTHPORT, AuthPort } from '../port/auth.port';
+import { Public } from '../public.decorator';
 
 @Controller('auth')
 export class AuthController{
-    // constructor()
+    constructor(
+      @Inject(AUTHPORT)
+      private authPort: AuthPort
+    ){}
     
-    @Post()
-    async singIn(@Body() signInDto:SignInDto){}
+    @Public()
+    @HttpCode(HttpStatus.OK)
+    @Post('singIn')
+    singIn(@Body() signInDto:SignInDto){
+      return this.authPort.signIn(signInDto.email,signInDto.password)
+    }
 
-    @Post()
-    async singnUp(@Body() signUpDto:SignUpDto){}
+    @Public()
+    @HttpCode(HttpStatus.OK)
+    @Post('singnUp')
+    singnUp(@Body() signUpDto:SignUpDto){}
 }

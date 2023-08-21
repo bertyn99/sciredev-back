@@ -1,6 +1,6 @@
-
 export interface UsersRepository {
 
+    findSignInUser(userEmail:string):Promise<any>;
 }
 
-// export const USERSREPOSITORY = Symbol('USERSREPOSITORY');
+export const USERSREPOSITORY = Symbol('USERSREPOSITORY');
