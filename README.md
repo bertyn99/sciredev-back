@@ -111,7 +111,8 @@ In this case we have the User Side the Bussiness Logic and The server side (I CA
 
 In métier we code the usecases and ower domain. And every other dependancy will converge to this part. Server side dependency and User Side will converge to Metier. But they don't interact directly with the Metier there are port for that.
 
-**Architecture**
+## **Architecture**
+```
 src/
 ├───infrastructure
 │   ├───common
@@ -126,15 +127,23 @@ src/
         ├───dto
         └───entities      
         └───usecase
+```
 
-**Current implementation**
 
+### Infrastructure layer:
+ This layer contains the code that interacts with external dependencies, such as the database, the file system, and the network.
+- **Common folder**: This folder contains common code that is used by multiple modules, such as exception handling, interceptors, validation, pipes, etc.
+- **Config folder**: This folder contains the configuration files for the application.
+- **Database folder**: This folder contains the code that interacts with the database.
+
+### Module Layer
 The code is separeted in modules. Itch module has an adapter , metier and port repository.
-- Adapter
+- **Adapter**:
   This is the implementation of the featurs user side and server side. 
-- Port/Usecase:
-  Adapters and usecases interact thanks to port with are just Interface.
-- Service:
+- **Port/Usecase**:
+  Adapters and service interact thanks to Usecase with are just Interface.
+- **DTO folder**: This folder contains the data transfer objects (DTOs) that are used to transfer data between the different layers.
+- **Service**:
   here we have our domain ; eg user.ts. It define the heart of the feature (what is a user , what can a user do? ).
   Then we have the service wich ise our usecase. We use `@Injectable()` to tell to nestjs that it is our service.
   Every adapter will depend on the service.
