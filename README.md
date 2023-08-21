@@ -123,3 +123,55 @@ In the other hand the repository Adapter implement the userRepository interface 
 The usecase in the service stay pure and every part of the project is testable
 
 Just need to tell to nestjs what class or interface are inject in what in the module file
+
+# Tests
+## Unit tests
+One of the most controversial subject in Software development is unit testing.
+
+What and how should we test ?
+
+Unit test should focus on the business value of your application: the use-cases.
+
+They have to be really fast (< x0 ms) in order to iterate quickly on the algorithm we are working on.
+
+In the outside world, we distinguish two approaches for unit testing: the Classicist vs the Mockist.
+
+This project uses the classicist approach in order to focus on the result of the behavior of the use-cases and not on how the behavior has been implemented: this leads to more meaningful tests, with a lighter syntax.
+
+So, use-cases are black-boxed tested with fake secondaries adapters injected at the beginning of the test suite.
+
+I/O: A use-case.
+
+![Alt text](doc/assets/image.png)
+
+## Integration tests
+Integration tests focuses on testing if tier services are well integrated with our system.
+
+To have relevant integration test, we want to create a testing environment as close as possible to a production one.
+
+For example, to test a repository, we will have a local database and make access to it as we would do in production.
+
+This kind of environment can be easily setup thanks to docker containers.
+
+They are slower than unit tests since they need an heavier environement. They usually takes up to < x00 ms.
+
+I/O: A real secondaries adapters.
+
+![Alt text](doc/assets/image-1.png)
+
+## End-to-end tests
+End-to-end tests focuses on testing a whole flow: one endpoint.
+
+They use our use-cases and real adapters in order to check if the flow under test behave as expected.
+
+They usually takes up from < x00 ms to < x000 ms.
+
+It allows us to check if our endpoints are accessible from the outside world and what are their responses.
+
+Those tests also wants to reproduce as possible a production enviroment, so they use the real implementations.
+
+The services that are too weird to keep in the test (mailing for example) will be doubled by a fake implementation.
+
+I/O: An endpoint.
+
+![E22 testing](doc/assets/image-2.png)
