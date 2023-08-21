@@ -98,10 +98,10 @@ Nest is [MIT licensed](LICENSE).
 **The resume of the clean archi and how it is implemented in this project**
  
 
- Currently we have 2 main folders:
-  - module: This is the applications business layer, in this folder it will contain the existing business flows of the application in the form of use cases.
-  - infrastructures : Contains frameworks and external tools, such as database, repository configuration and implementation.
-
+ Currently we have 3 main folders:
+  - **Modules**: This is the applications business layer, in this folder it will contain the existing business flows of the application in the form of use cases.
+  - **Infrastructures**: Contains frameworks and external tools, such as database, repository configuration and implementation.
+  - **Migrations**: Contain the typeorm generate migration from the entity
 
 
  **Resume**
