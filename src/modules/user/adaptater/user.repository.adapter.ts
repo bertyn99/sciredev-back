@@ -1,26 +1,52 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, EntityManager, EntityRepository, EntityTarget, Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { UsersRepository } from '../port/user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
+import { BaseRepository } from 'src/infrastructure/common/repository';
 
-
-@Injectable()
-export class UsersRepositoryAdapter implements UsersRepository  {
-  // constructor(
-  //   @InjectRepository(User)
-  //   private  usersRepository: Repository<User>,
-  // ) {}
-  constructor(
-    @Inject('USER_REPOSITORY')
-    private usersRepository: Repository<User>,
-  ) {}
-  findSignInUser(userEmail:string): Promise<any> {
-    return this.usersRepository.findOneBy({
-      email: userEmail,
-  }) 
+export function buildCustomRepositoryMethods<T>(): Pick<UsersRepository> {
+  return {
+  async testrepo()  {
+    console.log("dsf");
+    return this.repository.find();
+    
   }
+  };
+}
+// @Injectable()
+// export class UsersRepositoryAdapter  extends Repository<User> implements UsersRepository  {
+//   // repository: Repository<User>;
+//   // constructor(dataSource: DataSource) {
+//   //   console.log(dataSource);
+    
+//   //   this.repository = dataSource.getRepository<User>(User)
+//   // }
+//   // constructor(@InjectRepository(User) private repository: Repository<User>) {
+//   //   super(repository.target, repository.manager, repository.queryRunner)
+//   // }
+//   constructor(
+//     @Inject()
+//   )
+
+//   testrepo() {
+//     console.log("dsf");
+//     return this.repository.find();
+    
+//   }
+
+//   // constructor( 
+//   //   @InjectRepository(User)
+//   //   repository:Repository<User>) {
+//   //   super(User);
+//   // }
+  
+//   findSignInUser(userEmail:string): Promise<any> {
+//     return this.repository.findOneBy({
+//       email: userEmail,
+//   })  
+//   }
 
  
 
-}
+// }

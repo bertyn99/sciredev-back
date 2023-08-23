@@ -5,6 +5,7 @@ import {
     Inject,
     HttpCode,
     HttpStatus,
+    Get,
   } from '@nestjs/common';
 
 import { SignInDto } from './../dto/signIn.dto';
@@ -30,4 +31,10 @@ export class AuthController{
     @HttpCode(HttpStatus.OK)
     @Post('singnUp')
     singnUp(@Body() signUpDto:SignUpDto){}
+
+    @Public()
+    @Get('testrepository')
+    testrepo(){
+      return this.authPort.testrepo()
+    }
 }

@@ -6,15 +6,19 @@ import { AuthPort } from './port/auth.port';
 import { JwtService } from '@nestjs/jwt';
 import { User } from './entities/user.entity';
 import { SecureData } from './secureData';
-import { USERSREPOSITORY, UsersRepository } from './port/user.repository';
+import {  UsersRepository } from './port/user.repository';
 
 @Injectable()
 export class UserService implements UserControllerPort, AuthPort {
   constructor(
-    @Inject(USERSREPOSITORY)
+    @Inject('UsersRepository')
     private  usersRepository: UsersRepository,
     private jwtService: JwtService
   ) { }
+
+  testrepo(){
+    return this.usersRepository.testrepo();
+  }
   async signIn(userEmail: string, password: string): Promise<any> {
     const security = new SecureData();
     const user: User = await this.usersRepository.findSignInUser(userEmail);
