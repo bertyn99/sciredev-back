@@ -10,11 +10,11 @@ import {
 } from '@nestjs/common';
 
 
-import { CreateUserDto } from '../dto/create-user.dto';
 
 import { UpdateUserDto } from '../dto/update-user.dto';
 
 import { USERCONTROLLERPORT, UserControllerPort } from '../port/user.controller.port';
+import { User } from '../entities/user.entity';
 
 @Controller('user')
 export class UserController {
@@ -24,28 +24,23 @@ export class UserController {
     private userControllerPort: UserControllerPort
    ) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userControllerPort.create(createUserDto);
-  }
-
-  @Get()
-  findAll() {
+  @Get('findAll')
+  findAll(): Promise<User[]>  {
     return this.userControllerPort.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userControllerPort.findOne(+id);
+  findOne(@Param('id') id: number): Promise<User> {
+    return this.userControllerPort.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userControllerPort.update(+id, updateUserDto);
+  update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto):Promise<String> {
+    return this.userControllerPort.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userControllerPort.remove(+id);
+  remove(@Param('id') id: number): string {
+    return this.userControllerPort.remove(id);
   }
 }
