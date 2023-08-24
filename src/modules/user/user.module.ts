@@ -5,13 +5,13 @@ import { USERCONTROLLERPORT } from "./port/user.controller.port";
 import { UsersRepositoryAdapter } from './adaptater/user.repository.adapter';
 import { jwtConstants } from './constants';
 import { JwtModule } from '@nestjs/jwt';
-import { UsersRepository } from './port/user.repository';
 import { AuthGuard } from './auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { userProviders } from './user.providers';
 import { DatabaseModule } from './../../infrastructure/database/database.module';
 import { AuthController } from './adaptater/auth.controller';
 import { AUTHPORT } from './port/auth.port';
+import { connectionProvider } from './factory.provider';
 
 @Module({
   controllers: [UserController, AuthController],
@@ -26,14 +26,14 @@ import { AUTHPORT } from './port/auth.port';
   ],
   providers: [
     ...userProviders,
-    // UsersRepositoryAdapter,
-    {
-      provide: 'UsersRepository',
-      useClass: UsersRepositoryAdapter,
-    },
+    UsersRepositoryAdapter,
     {
       provide: USERCONTROLLERPORT,
       useClass: UserService, // Utilisez UserServices en tant que valeur pour ControllerPort
+    },
+    {
+      provide: 'UsersRepository',
+      useClass: UsersRepositoryAdapter, // Utilisez UserServices en tant que valeur pour ControllerPort
     },
     {
       provide: AUTHPORT,

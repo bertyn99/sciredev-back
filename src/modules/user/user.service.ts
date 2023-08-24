@@ -12,7 +12,7 @@ import {  UsersRepository } from './port/user.repository';
 export class UserService implements UserControllerPort, AuthPort {
   constructor(
     @Inject('UsersRepository')
-    private  usersRepository: UsersRepository,
+    private readonly usersRepository: UsersRepository,
     private jwtService: JwtService
   ) { }
 

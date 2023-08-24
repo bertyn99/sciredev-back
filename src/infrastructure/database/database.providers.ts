@@ -1,7 +1,8 @@
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { User } from './../../modules/user/entities/user.entity';
 import { DataSource } from 'typeorm';
 
-
+//? cant use this yet
 export const typeOrmOptions: TypeOrmModuleOptions = {
     type: 'postgres',
     host: process.env.DATABASE_HOST,
@@ -27,11 +28,27 @@ export const typeOrmOptions: TypeOrmModuleOptions = {
 
 export const databaseProviders = [
     {
-        provide: DataSource,
+        provide: 'DATA_SOURCE',
         useFactory: async () => {
-            return await TypeOrmModule.forRoot(typeOrmOptions);
+            // return await TypeOrmModule.forRoot(typeOrmOptions);
+            const dataSource = new DataSource({
+                type: 'postgres',
+                host: process.env.DATABASE_HOST,
+                port: Number(process.env.DATABASE_PORT),
+                username: process.env.DATABASE_USER,
+                password: process.env.DATABASE_PASSWORD,
+                database: process.env.DATABASE_NAME,
+                entities: [User],
+                logging: true,
+                synchronize: true,
+                schema: process.env.DATABASE_SCHEMA,
+                
+            });
+
+            return dataSource.initialize();
         },
     },
+    
     // {
     //     provide: 'REDIS_CONNECTION',
     //     useFactory: async () => {
