@@ -10,7 +10,9 @@ export class UsersRepositoryAdapter  implements UsersRepository  {
   constructor(
     @Inject('REPOSITORY')
     private repository: Repository<User>) {
-      
+  }
+  createUser(newUser: User): Promise<User> {
+    return this.repository.save(newUser)
   }
   testrepo() {
     console.log("______________________dsf");
@@ -20,7 +22,7 @@ export class UsersRepositoryAdapter  implements UsersRepository  {
     
   }
 
-  findSignInUser(userEmail:string): Promise<any> {
+  checkAuthUser(userEmail:string): Promise<User> {
     return this.repository.findOneBy({
       email: userEmail,
   })  

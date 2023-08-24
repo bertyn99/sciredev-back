@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { UserController } from './adaptater/user.controller';
 import { USERCONTROLLERPORT } from "./port/user.controller.port";
 import { UsersRepositoryAdapter } from './adaptater/user.repository.adapter';
-import { jwtConstants } from './constants';
+import { jwtConstants } from '../../infrastructure/common/constants';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthGuard } from './auth.guard';
 import { APP_GUARD } from '@nestjs/core';
@@ -11,7 +11,6 @@ import { userProviders } from './user.providers';
 import { DatabaseModule } from './../../infrastructure/database/database.module';
 import { AuthController } from './adaptater/auth.controller';
 import { AUTHPORT } from './port/auth.port';
-import { connectionProvider } from './factory.provider';
 
 @Module({
   controllers: [UserController, AuthController],

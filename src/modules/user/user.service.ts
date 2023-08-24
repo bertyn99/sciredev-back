@@ -6,7 +6,7 @@ import { AuthPort } from './port/auth.port';
 import { JwtService } from '@nestjs/jwt';
 import { User } from './entities/user.entity';
 import { SecureData } from './secureData';
-import {  UsersRepository } from './port/user.repository';
+import { UsersRepository } from './port/user.repository';
 
 @Injectable()
 export class UserService implements UserControllerPort, AuthPort {
@@ -16,12 +16,13 @@ export class UserService implements UserControllerPort, AuthPort {
     private jwtService: JwtService
   ) { }
 
-  testrepo(){
+  testrepo() {
     return this.usersRepository.testrepo();
   }
-  async signIn(userEmail: string, password: string): Promise<any> {
+  async signIn(userEmail: string, password: string): Promise<{ access_token: string }> {
+
     const security = new SecureData();
-    const user: User = await this.usersRepository.findSignInUser(userEmail);
+    const user: User = await this.usersRepository.checkAuthUser(userEmail);
     const isPasswordMatched = await security.isHashDataMatch(
       password,
       user.password,
@@ -34,8 +35,23 @@ export class UserService implements UserControllerPort, AuthPort {
       access_token: await this.jwtService.signAsync(payload),
     };
   }
-  signUp(username: string, password: string, email: string): Promise<any> {
-    throw new Error('Method not implemented.');
+  async signUp(userName: string, password: string, email: string): Promise<{ access_token: string }> {
+    const security = new SecureData();
+    const userAlreadyExist: User = await this.usersRepository.checkAuthUser(email);
+    if (userAlreadyExist) {
+      throw new UnauthorizedException('user already exist');
+    }
+    const hashedPwd: string = await security.hashData(password);
+
+    const newUser = new User();
+    newUser.email = email;
+    newUser.password = hashedPwd;
+    newUser.name = userName;
+    this.usersRepository.createUser(newUser)
+    const payload = { userEmail: newUser.email, sub: newUser.id };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 
   create(createUserDto: CreateUserDto) {

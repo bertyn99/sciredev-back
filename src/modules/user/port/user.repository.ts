@@ -4,7 +4,9 @@ import { User } from "../entities/user.entity";
 export interface UsersRepository  {
     testrepo()
 
-    findSignInUser(userEmail:string):Promise<any>;
+    checkAuthUser(userEmail:string):Promise<User>;
+
+    createUser(newUser:User):Promise<User>;
+ 
 }
 
-// export const USERSREPOSITORY = Symbol('USERSREPOSITORY');
