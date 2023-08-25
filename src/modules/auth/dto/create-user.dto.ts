@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
     IsBoolean,
     IsEmail,
@@ -9,15 +10,18 @@ import {
     @IsString()
     @IsNotEmpty()
     @Length(1, 20)
+    @ApiProperty()
     userName: string;
   
     @IsEmail()
     @IsNotEmpty()
+    @ApiProperty()
     email: string;
   
     @IsString()
     @IsNotEmpty()
     @Length(8, 20)
+    @ApiProperty()
     password: string;
   
   }
