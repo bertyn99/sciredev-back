@@ -8,8 +8,8 @@ import {
     Get,
   } from '@nestjs/common';
 
-import { SignInDto } from './../dto/signIn.dto';
-import { SignUpDto } from './../dto/singUp.dto';
+import { SignInDto } from '../dto/signIn.dto';
+import { SignUpDto } from '../dto/singUp.dto';
 import { AUTHPORT, AuthPort } from '../port/auth.port';
 import { Public } from '../public.decorator';
 

@@ -1,9 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DataSource, EntityManager, EntityRepository, EntityTarget, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { UsersRepository } from '../port/user.repository';
-import { InjectRepository } from '@nestjs/typeorm';
-import { BaseRepository } from 'src/infrastructure/common/repository';
 
 @Injectable()
 export class UsersRepositoryAdapter implements UsersRepository {
@@ -11,9 +9,7 @@ export class UsersRepositoryAdapter implements UsersRepository {
     @Inject('REPOSITORY')
     private repository: Repository<User>) {
   }
-  // update(user: User): void {
-  //   this.repository.update(user);
-  // }
+
   deleteUser(id: number): void {
     this.repository.delete(id);
   }
@@ -31,9 +27,5 @@ export class UsersRepositoryAdapter implements UsersRepository {
     return this.repository.find();
   }
 
-  checkAuthUser(userEmail: string): Promise<User> {
-    return this.repository.findOneBy({
-      email: userEmail,
-    })
-  }
+
 }
