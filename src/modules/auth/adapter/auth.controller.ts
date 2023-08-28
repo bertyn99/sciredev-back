@@ -42,11 +42,5 @@ export class AuthController {
     return this.authPort.signUp(signUpDto.userName, signUpDto.password, signUpDto.email);
   }
 
-  @Public()
-  @ApiOperation({ summary: 'Test the repository' })
-  @ApiResponse({ status: 200, description: 'Test successful' })
-  @Get('testrepository')
-  testrepo() {
-    return this.authPort.testrepo();
-  }
+
 }

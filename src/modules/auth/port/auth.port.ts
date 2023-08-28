@@ -5,6 +5,5 @@ export interface AuthPort {
 
     signUp(userName: string, password: string , email:string): Promise<{ access_token: string }>
     
-    testrepo():Promise<User[]>
 }
 export const AUTHPORT = Symbol('AUTHPORT');

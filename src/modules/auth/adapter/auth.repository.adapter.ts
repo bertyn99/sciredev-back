@@ -10,7 +10,7 @@ export class AuthRepositoryAdapter implements AuthRepository {
         private repository: Repository<User>) {
     }
 
-    checkAuthUser(userEmail: string): Promise<User> {
+    checkAuthUser(userEmail: string): Promise<User|null> {
         return this.repository.findOneBy({
             email: userEmail,
         })
