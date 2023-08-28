@@ -33,7 +33,7 @@ export class AuthController {
   }
 
   @Public()
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Sign up a new user' })
   @ApiBody({ type: SignUpDto })
   @ApiOkResponse({ description: 'Successful registration', type: String })
