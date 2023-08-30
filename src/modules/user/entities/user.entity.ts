@@ -1,4 +1,5 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { UsersRepository } from '../port/user.repository';
 
 @Entity('users')
 export class User {

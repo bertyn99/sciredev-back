@@ -2,7 +2,8 @@ import swc from 'unplugin-swc';
 import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
-    include: ['**/*.e2e-spec.ts'],
+    //!Inclut seulement les fichiers de test qui correspondent à ce modèle, en l'occurrence, ceux qui finissent par .e2e-spec.ts.
+    // include: ['**/*.e2e-spec.ts'],
     globals: true,
     root: './',
   },
