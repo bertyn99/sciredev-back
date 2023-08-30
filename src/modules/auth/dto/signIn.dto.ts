@@ -5,23 +5,18 @@ import {
     IsString,
     Length,
     MaxLength,
-} from 'class-validator';
-export class UpdateUserDto {
-    @IsString()
+  } from 'class-validator';
+  
+  export class SignInDto {
     @IsNotEmpty()
-    @Length(1, 20)
-    @ApiProperty()
-    userName: string;
-
     @IsEmail()
-    @IsNotEmpty()
     @MaxLength(30)
     @ApiProperty()
     email: string;
-
+  
     @IsString()
     @IsNotEmpty()
     @Length(8, 20)
     @ApiProperty()
     password: string;
-}
+  }

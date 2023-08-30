@@ -1,28 +1,41 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { Inject, Injectable } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UsersRepository } from './adaptater/user.repository';
+import { UserControllerPort } from './port/user.controller.port';
+import { User } from './entities/user.entity';
+import { SecureData } from '../auth/secureData';
+import { UsersRepository } from './port/user.repository';
 
 @Injectable()
-export class UserService {
-  constructor(private readonly userRepository: UsersRepository) {}
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+export class UserService implements UserControllerPort{
+  constructor(
+    @Inject('UsersRepository')
+    private readonly usersRepository: UsersRepository,
+  ) { }
+
+  findAll(): Promise<User[]>  {
+    return this.usersRepository.getAllUsers();
   }
 
-  findAll() {
-    return `This action returns all user`;
+  findOne(id: number) : Promise<User>  {
+    return this.usersRepository.getUserById(id);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
+  async update(id: number, updateUserDto: UpdateUserDto):Promise<String> {
+    const security = new SecureData();
+    const hashedPwd: string = await security.hashData(updateUserDto.password);
+   
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+    const user:Promise<User> = this.usersRepository.getUserById(1);
+    (await user).email = updateUserDto.email;
+    (await user).password = hashedPwd;
+    (await user).name = updateUserDto.userName;
+    
+    this.usersRepository.saveUser(await user);
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
+  remove(id: number):string {
+    this.usersRepository.deleteUser(id)
     return `This action removes a #${id} user`;
   }
 }
