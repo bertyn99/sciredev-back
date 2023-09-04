@@ -9,10 +9,10 @@ const configOrm = new DataSource({
   username: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
-  entities: ['src/domain/entities/**/*.entity{.ts,.js}'],
+  entities: ['src/modules/**/entities/**/*.entity{.ts,.js}'],
   synchronize: false,
   migrationsRun: true,
-  migrations: ['../../../migrations/**/*{.ts,.js}'],
+  migrations: ['src/infrastructure/database/migrations/**/*{.ts,.js}'],
 });
 
 configOrm

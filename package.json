@@ -19,9 +19,10 @@
     "test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false",
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
     "typeorm": "typeorm-ts-node-commonjs -d src/infrastructure/database/typeorm/typeorm.config.ts",
-    "migration:generate": "pnpm typeorm migration:generate src/migrations/test",
-    "migration:create": "pnpm run typeorm -- migration:create ./src/migrations/$npm_config_name",
-    "migration:revert": "pnpm run typeorm -- -d ./src/infrastructure/typeorm.ts migration:revert"
+    "migration:generate": "pnpm typeorm migration:generate src/infrastructure/database/migrations/scire",
+    "migration:create": "pnpm run typeorm -- migration:create src/infrastructure/database/migrations/",
+    "migration:revert": "pnpm run typeorm -- -d ./src/infrastructure/typeorm.ts migration:revert",
+    "migration:run": "pnpm run typeorm migration:run"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

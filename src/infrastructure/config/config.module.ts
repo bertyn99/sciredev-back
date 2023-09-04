@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { DatabaseConfigService } from './config.database';
 import { ConfigModule } from '@nestjs/config';
+import { DatabaseModule } from '../database/database.module';
 
 @Module({
   imports: [
@@ -13,8 +13,8 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
     }),
   ],
-  providers: [DatabaseConfigService],
-  exports: [DatabaseConfigService],
+  providers: [DatabaseModule],
+  exports: [DatabaseModule],
 })
 // eslint-disable-next-line unicorn/prevent-abbreviations
 export class EnvConfigModule {}
